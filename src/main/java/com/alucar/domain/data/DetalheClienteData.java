@@ -1,13 +1,14 @@
 package com.alucar.domain.data;
 
 import com.alucar.domain.model.Cliente;
+import com.alucar.domain.model.Funcao;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.Set;
+
 
 public class DetalheClienteData implements UserDetails {
 

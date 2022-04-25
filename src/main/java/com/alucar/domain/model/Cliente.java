@@ -6,9 +6,9 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
-import static com.alucar.domain.model.Role.CLIENTE;
+
+
 
 
 @EqualsAndHashCode(onlyExplicitlyIncluded = true) // verifica a igualdade de dois objetos, com a inclusão dos parenteses, temmos a comparação através de um campo determinado deforma explicita
@@ -59,10 +59,9 @@ public class Cliente {
     @Size (max = 100) //limita tamanhop máximo de caracteres
     private String senha;
 
-    //private Set<Funcao> authorities;
-
-    @Enumerated(EnumType.STRING)
-    private Role funcao = CLIENTE;
+    @ManyToOne
+    @JoinColumn(name = "funcao_id")
+    private Funcao funcao;
 
     private boolean ativo = true;
 

@@ -3,6 +3,8 @@ package com.alucar.api.controller;
 import com.alucar.domain.model.Carro;
 import com.alucar.domain.repository.CarroRepository;
 import com.alucar.domain.service.CarroService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/carro")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Tag(name = "CARROS - Métodos")
 public class CarroController {
 
     @Autowired
@@ -25,11 +28,13 @@ public class CarroController {
     private CarroService carroService;
 
     @GetMapping
+    @Operation(description = "Retorna lista de Carros.")
     public List<Carro> listar() {
         return carroRepository.findAll();
     }
 
     @GetMapping("/{carroId}")
+    @Operation(description = "Retorna um Carro específico, através do ID.")
     public ResponseEntity<Carro> buscar(@PathVariable Integer carroId) {
         Optional<Carro> carro = carroRepository.findById(carroId);
             if(carro.isPresent()){
@@ -38,13 +43,15 @@ public class CarroController {
             return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
+    @Operation(description = "Adiciona um novo Carro.")
     @ResponseStatus(HttpStatus.CREATED)
     public Carro adicionar (@Valid @RequestBody Carro carro) {
         return carroService.salvar(carro);
     }
 
     @PutMapping("/atualizar/{carroId}")
+    @Operation(description = "Altera um Carro.")
     public ResponseEntity<Carro> atualizar (@PathVariable Integer carroId, @Valid @RequestBody Carro carro) {
         if(!carroRepository.existsById(carroId)){
             return ResponseEntity.notFound().build();
@@ -56,7 +63,8 @@ public class CarroController {
         return ResponseEntity.ok(carro);
     }
 
-    @DeleteMapping("/{carroId}")
+    @DeleteMapping("/deletar/{carroId}")
+    @Operation(description = "Exclui um Carro.")
     public ResponseEntity<Void> excluir (@PathVariable Integer carroId) {
         if (!carroRepository.existsById(carroId)) {
             return ResponseEntity.notFound().build();

@@ -3,6 +3,8 @@ package com.alucar.api.controller;
 import com.alucar.domain.model.Cidades;
 import com.alucar.domain.repository.CidadesRepository;
 import com.alucar.domain.service.CidadesService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/cidades")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Tag(name= "CIDADES - Métodos")
 public class CidadesController {
 
     @Autowired
@@ -25,11 +28,13 @@ public class CidadesController {
     private CidadesService cidadesService;
 
     @GetMapping
+    @Operation(description = "Retorna lista de Cidades")
     public List<Cidades> listar() {
         return cidadesRepository.findAll();
     }
 
     @GetMapping("/{cidadesId}")
+    @Operation(description = "Retorna uma Cidade específica, através do ID.")
     public ResponseEntity<Cidades> buscar(@PathVariable Integer cidadesId) {
         Optional<Cidades> cidades = cidadesRepository.findById(cidadesId);
         if(cidades.isPresent()){
@@ -38,13 +43,15 @@ public class CidadesController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
+    @PostMapping("/cadastrar")
+    @Operation(description = "Adiciona uma nova Cidade.")
     @ResponseStatus(HttpStatus.CREATED)
     public Cidades adicionar (@Valid @RequestBody Cidades cidades) {
         return cidadesService.salvar(cidades);
     }
 
     @PutMapping("/atualizar/{cidadesId}")
+    @Operation(description = "Altera uma Cidade.")
     public ResponseEntity<Cidades> atualizar (@PathVariable Integer cidadesId, @Valid @RequestBody Cidades cidades) {
         if (!cidadesRepository.existsById(cidadesId)) {
             return ResponseEntity.notFound().build();
@@ -56,7 +63,8 @@ public class CidadesController {
         return ResponseEntity.ok(cidades);
     }
 
-    @DeleteMapping("/{cidadesId}")
+    @DeleteMapping("/deletar/{cidadesId}")
+    @Operation(description = "Exclui uma Cidade.")
     public ResponseEntity<Void> excluir (@PathVariable Integer cidadesId) {
         if (!cidadesRepository.existsById(cidadesId)) {
             return ResponseEntity.notFound().build();

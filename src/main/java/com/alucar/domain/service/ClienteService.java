@@ -20,6 +20,7 @@ import java.util.Optional;
 @Service // cria a classe com semântica de serviço, onde ocorrerão as regras de negócio
 public class ClienteService {
 
+    @Autowired
     private ClienteRepository clienteRepository;
     @Autowired
     private final PasswordEncoder encoder;
