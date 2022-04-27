@@ -1,5 +1,6 @@
 package com.alucar.api.controller;
 
+import com.alucar.domain.exception.NegocioException;
 import com.alucar.domain.repository.ClienteRepository;
 import com.alucar.domain.model.Cliente;
 import com.alucar.domain.service.ClienteService;
