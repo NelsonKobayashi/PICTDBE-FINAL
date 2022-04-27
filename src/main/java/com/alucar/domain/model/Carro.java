@@ -23,13 +23,13 @@ public class Carro {
     @Column(name="carro_id")
     private Integer carroId;
 
-    @NotBlank // impede que seja passado campo em branco ou nulo
+    //@NotBlank // impede que seja passado campo em branco ou nulo
     @Size(max = 30) //limita tamanho máximo de caracteres
     private String modelo;
 
     private double valor;
 
-    @NotBlank // impede que seja passado campo em branco ou nulo
+    //@NotBlank // impede que seja passado campo em branco ou nulo
     @Size(max = 7) //limita tamanho máximo de caracteres
     private String placa;
 

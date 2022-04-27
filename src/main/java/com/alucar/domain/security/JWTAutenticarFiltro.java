@@ -62,8 +62,10 @@ public class JWTAutenticarFiltro extends UsernamePasswordAuthenticationFilter {
         DetalheClienteData clienteData = (DetalheClienteData) authResult.getPrincipal();
 
         String token = JWT.create().
-                withSubject(clienteData.getUsername())
+                //withSubject(clienteData.getUsername())
+                withSubject(clienteData.getFuncao())
                 .withExpiresAt(new Date(System.currentTimeMillis() + TOKEN_EXPIRACAO))  // milisegundos atuais + tempo do TOKEN_EXPIRACAO, expira o tempo do token
+                .withClaim("email" , clienteData.getUsername())
                 .sign(Algorithm.HMAC512(TOKEN_SENHA));
 
         response.getWriter().write(token);

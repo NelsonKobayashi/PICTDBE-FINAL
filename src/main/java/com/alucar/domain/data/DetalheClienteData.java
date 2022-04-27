@@ -1,7 +1,6 @@
 package com.alucar.domain.data;
 
 import com.alucar.domain.model.Cliente;
-import com.alucar.domain.model.Funcao;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -36,4 +35,6 @@ public class DetalheClienteData implements UserDetails {
 
     @Override
     public boolean isEnabled() { return true; }
+
+    public String getFuncao() { return String.valueOf(cliente.orElse(new Cliente()).getFuncao().getAuthority()); }
 }
