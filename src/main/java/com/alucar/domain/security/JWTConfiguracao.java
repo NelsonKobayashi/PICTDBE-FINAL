@@ -56,10 +56,10 @@ public class JWTConfiguracao extends WebSecurityConfigurerAdapter {
 
                 //.antMatchers("pedido").authenticated()
 
-                //.antMatchers(HttpMethod.GET).authenticated()
-                //.antMatchers(HttpMethod.PUT).authenticated()
-                //.antMatchers(HttpMethod.DELETE).authenticated()
-                //.anyRequest().authenticated()
+                .antMatchers(HttpMethod.GET).permitAll()
+                .antMatchers(HttpMethod.PUT).authenticated()
+                .antMatchers(HttpMethod.DELETE).authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAutenticarFiltro(authenticationManager()))
                 .addFilter(new JWTValidarFiltro(authenticationManager()))
